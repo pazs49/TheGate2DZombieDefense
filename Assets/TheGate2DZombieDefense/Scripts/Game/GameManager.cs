@@ -7,13 +7,35 @@ public class GameManager : MonoBehaviour
   public delegate void StateChange(GameState state);
   public event StateChange OnStateChange;
 
-  public GameState state;
+  [SerializeField] GameState currentState;
 
-  public void State(GameState state)
+  private void Awake()
   {
+    if (Instance == null)
+    {
+      Instance = this;
+    }
+    else
+    {
+      Destroy(gameObject);
+    }
+  }
+
+  private void Start()
+  {
+    UpdateState(GameState.StartMenu);
+  }
+  //-----------------------------------------------
+  void State(GameState state)
+  {
+    currentState = state;
     switch (state)
     {
       case GameState.StartMenu:
+        break;
+      case GameState.Menu:
+        break;
+      case GameState.Preparation:
         break;
       case GameState.Playing:
         break;
@@ -26,19 +48,20 @@ public class GameManager : MonoBehaviour
       case GameState.Paused:
         break;
     }
-    OnStateChange(state);
+    OnStateChange?.Invoke(state);
   }
 
-  private void Start()
+  public void UpdateState(GameState state)
   {
-    State(GameState.StartMenu);
+    State(state);
   }
-
 }
 
 public enum GameState
 {
   StartMenu,
+  Menu,
+  Preparation,
   Playing,
   LevelEndWon,
   LevelEndLost,
