@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Menu : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
   public Canvas menuCanvas;
   public Canvas titleCanvas;

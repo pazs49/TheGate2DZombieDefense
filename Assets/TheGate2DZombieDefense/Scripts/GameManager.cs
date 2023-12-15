@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,8 +10,17 @@ public class GameManager : MonoBehaviour
 
   [SerializeField] GameState currentState;
 
+  [Space(20)]
+  public TextMeshProUGUI currentGoAmmoText;
+
   private void Awake()
   {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    Debug.unityLogger.logEnabled = true;
+#else
+    Debug.logger.logEnabled = false;
+#endif
+
     if (Instance == null)
     {
       Instance = this;
@@ -54,6 +64,16 @@ public class GameManager : MonoBehaviour
   public void UpdateState(GameState state)
   {
     State(state);
+  }
+
+  public GameState GetCurrentState()
+  {
+    return currentState;
+  }
+  //----------------------------------------------------------
+  public void UpdatePlayingUI()
+  {
+    currentGoAmmoText.text = "Ammo: " + PlayerLoadout.Instance.GetCurrentEquippedGunAmmo();
   }
 }
 
