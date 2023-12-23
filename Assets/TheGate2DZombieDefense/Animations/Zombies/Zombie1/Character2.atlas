@@ -1,0 +1,83 @@
+
+Character2.png
+size: 278,167
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 59
+  size: 71, 106
+  orig: 71, 108
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 86, 5
+  size: 47, 58
+  orig: 48, 59
+  offset: 0, 1
+  index: -1
+hips
+  rotate: false
+  xy: 210, 2
+  size: 66, 44
+  orig: 68, 58
+  offset: 2, 0
+  index: -1
+leg-lower-back
+  rotate: false
+  xy: 75, 65
+  size: 59, 100
+  orig: 59, 101
+  offset: 0, 1
+  index: -1
+leg-lower-front
+  rotate: true
+  xy: 136, 124
+  size: 41, 104
+  orig: 43, 105
+  offset: 0, 1
+  index: -1
+leg-upper-back
+  rotate: true
+  xy: 2, 9
+  size: 48, 82
+  orig: 48, 82
+  offset: 0, 0
+  index: -1
+leg-upper-front
+  rotate: true
+  xy: 136, 77
+  size: 45, 93
+  orig: 45, 93
+  offset: 0, 0
+  index: -1
+lower-arm-back
+  rotate: true
+  xy: 135, 5
+  size: 41, 73
+  orig: 41, 74
+  offset: 0, 0
+  index: -1
+lower-arm-front
+  rotate: true
+  xy: 136, 48
+  size: 27, 85
+  orig: 28, 85
+  offset: 1, 0
+  index: -1
+upper-arm-back
+  rotate: false
+  xy: 242, 111
+  size: 32, 54
+  orig: 32, 54
+  offset: 0, 0
+  index: -1
+upper-arm-front
+  rotate: false
+  xy: 231, 50
+  size: 31, 59
+  orig: 31, 59
+  offset: 0, 0
+  index: -1

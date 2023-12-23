@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: Simfle
   type: 1
-  damage: 5
-  ammo: 50
+  damage: 10
+  penetrationPower: 5
   magazineCapacity: 20
   reloadSpeed: 2
   fireRate: 8

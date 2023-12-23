@@ -1,0 +1,90 @@
+
+character1.png
+size: 351,158
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: true
+  xy: 71, 2
+  size: 73, 95
+  orig: 73, 95
+  offset: 0, 0
+  index: -1
+hair
+  rotate: false
+  xy: 72, 77
+  size: 49, 48
+  orig: 51, 51
+  offset: 1, 2
+  index: -1
+head
+  rotate: true
+  xy: 123, 77
+  size: 47, 56
+  orig: 48, 57
+  offset: 0, 0
+  index: -1
+hips
+  rotate: true
+  xy: 2, 18
+  size: 65, 67
+  orig: 67, 69
+  offset: 1, 1
+  index: -1
+leg-back
+  rotate: true
+  xy: 181, 61
+  size: 55, 164
+  orig: 55, 166
+  offset: 0, 1
+  index: -1
+leg-front
+  rotate: true
+  xy: 168, 2
+  size: 57, 180
+  orig: 58, 182
+  offset: 1, 2
+  index: -1
+lower-arm-back
+  rotate: true
+  xy: 2, 85
+  size: 42, 68
+  orig: 42, 68
+  offset: 0, 0
+  index: -1
+lower-arm-front
+  rotate: true
+  xy: 2, 129
+  size: 27, 69
+  orig: 27, 70
+  offset: 0, 0
+  index: -1
+pistol/pistol1
+  rotate: true
+  xy: 181, 125
+  size: 31, 45
+  orig: 33, 47
+  offset: 1, 1
+  index: -1
+rifle/rifle1
+  rotate: true
+  xy: 228, 118
+  size: 38, 121
+  orig: 41, 123
+  offset: 1, 1
+  index: -1
+upper-arm-back
+  rotate: true
+  xy: 128, 126
+  size: 30, 51
+  orig: 32, 53
+  offset: 1, 1
+  index: -1
+upper-arm-front
+  rotate: true
+  xy: 73, 127
+  size: 29, 53
+  orig: 31, 55
+  offset: 1, 1
+  index: -1
