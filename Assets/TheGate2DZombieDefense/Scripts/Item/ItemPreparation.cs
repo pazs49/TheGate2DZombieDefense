@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,22 +10,30 @@ public class ItemPreparation : MonoBehaviour
   public ItemData itemData;
 
   public Gun gunData;
+  public int currentMagazineBullet;
+
   public Skill skillData;
 
   bool picked;
 
   private void Start()
   {
+    ShowItemName();
+
     AddOnClick();
 
     GameManager.Instance.OnStateChange += HandleRemoveButtonClickAfterPreparation;
     GameManager.Instance.OnStateChange += HandleLoadItemData;
+
+    GameManager.Instance.OnStateChange += HandleMoveBackItemDataToSaveAsJSON;
   }
 
   private void OnDestroy()
   {
     GameManager.Instance.OnStateChange -= HandleRemoveButtonClickAfterPreparation;
     GameManager.Instance.OnStateChange -= HandleLoadItemData;
+
+    GameManager.Instance.OnStateChange -= HandleMoveBackItemDataToSaveAsJSON;
   }
 
   void HandleButtonClick()
@@ -88,6 +98,44 @@ public class ItemPreparation : MonoBehaviour
     if (state == GameState.Playing && itemType == ItemType.Gun)
     {
       itemData = CurrentPlayerData.Instance.GetGunData(gunData.name);
+      currentMagazineBullet = itemData.bulletCount >= gunData.magazineCapacity ? gunData.magazineCapacity : itemData.bulletCount;
+    }
+    else if (state == GameState.Playing && itemType == ItemType.Skill)
+    {
+      itemData = CurrentPlayerData.Instance.GetSkillData(skillData.name);
+    }
+
+  }
+
+  void ShowItemName()
+  {
+    if (itemType == ItemType.Gun)
+      transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gunData.gunName;
+    else if (itemType == ItemType.Skill)
+      transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = skillData.skillName;
+  }
+
+  void HandleMoveBackItemDataToSaveAsJSON(GameState state)
+  {
+    //Gun data
+    if (state == GameState.LevelEndWon)
+    {
+      List<string> currentGunsData = CurrentPlayerData.Instance.data.gunInventory;
+
+      List<string> updatedGunsData = currentGunsData.Select(gun =>
+      {
+        ItemData gunData = JsonUtility.FromJson<ItemData>(gun);
+
+        if (itemData != null && itemData.name == gunData.name)
+        {
+          gunData = itemData;
+        }
+
+        string newStringGunData = JsonUtility.ToJson(gunData);
+        return newStringGunData;
+      }).ToList();
+
+      CurrentPlayerData.Instance.data.gunInventory = updatedGunsData;
     }
   }
 }

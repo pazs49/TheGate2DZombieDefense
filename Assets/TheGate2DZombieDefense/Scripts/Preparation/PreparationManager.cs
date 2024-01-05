@@ -55,6 +55,16 @@ public class PreparationManager : MonoBehaviour
       GameObject go = Instantiate(inventoryItem, inventoryItemContent.transform);
       ItemPreparation item = go.AddComponent<ItemPreparation>();
       item.itemType = ItemType.Skill;
+
+      ItemData itemData = JsonUtility.FromJson<ItemData>(skill);
+
+      foreach (Skill fe_skill in GunsAndSkills.Instance.skills)
+      {
+        if (fe_skill.name == itemData.name)
+        {
+          item.skillData = fe_skill;
+        }
+      }
     }
   }
 

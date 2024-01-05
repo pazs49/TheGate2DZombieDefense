@@ -9,6 +9,8 @@ TagManager:
   - ZombieSpawner
   - DayManager
   - Zombie
+  - Base
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Zombie
   - 
   - 
   - 
@@ -45,4 +47,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Zombie
+    uniqueID: 2984075627
+    locked: 0
+  - name: Barricade
+    uniqueID: 1633047647
+    locked: 0
+  - name: GateMask
+    uniqueID: 1822352599
+    locked: 0
+  - name: Player
+    uniqueID: 3117561331
     locked: 0

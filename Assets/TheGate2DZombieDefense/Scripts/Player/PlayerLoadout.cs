@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-//Current guns/skills in playing
+//Current guns/skills/gate/base in playing
 public class PlayerLoadout : MonoBehaviour
 {
   public static PlayerLoadout Instance;
@@ -13,7 +13,11 @@ public class PlayerLoadout : MonoBehaviour
   public List<GameObject> guns;
   public List<GameObject> skills;
 
+  public GateAndBaseData gateAndBaseData;
+
   public GameObject currentItemEquipped;
+
+  public bool isDelay1FrameUpdatePlayingUI = true;
 
   [Space(20)]
   public TextMeshProUGUI currentGoAmmoText;
@@ -51,11 +55,28 @@ public class PlayerLoadout : MonoBehaviour
     return currentEquippedGunAmmo;
   }
 
+  public (Gun gunData, ItemData itemData) GetCurrentEquippedGun()
+  {
+    Gun mGun = currentItemEquipped.GetComponent<ItemPreparation>().gunData;
+    ItemData mItem = currentItemEquipped.GetComponent<ItemPreparation>().itemData;
+
+    return (gunData: mGun, itemData: mItem);
+  }
+
   void Init(GameState state)
   {
-    if (state == GameState.Playing)
+    if (state == GameState.Preparation)
+    {
+      isDelay1FrameUpdatePlayingUI = true;
+    }
+
+    else if (state == GameState.Playing)
     {
       EquipGun(guns.First(), guns.First().GetComponent<ItemPreparation>().gunData.name.ToLower(), currentGoAmmoText);
+
+      gateAndBaseData = new GateAndBaseData();
+      gateAndBaseData.gateHealth = CurrentPlayerData.Instance.data.gateAndBaseData.gateHealth;
+      gateAndBaseData.baseHealth = CurrentPlayerData.Instance.data.gateAndBaseData.baseHealth;
     }
   }
 
@@ -82,25 +103,42 @@ public class PlayerLoadout : MonoBehaviour
       EquipGun(gunGo, gunName, currentGoAmmoText);
     });
   }
+
   void EquipGun(GameObject gunGo, string gunName, TextMeshProUGUI currentGoAmmoText)
   {
-    currentItemEquipped = gunGo;
-
-    currentGoAmmoText.text = "Ammo: " + GetCurrentEquippedGunAmmo(gunName);
-
-    string gunPath = GUN_PATH + gunName;
-    switch (gunGo.GetComponent<ItemPreparation>().gunData.type)
+    if (!Player.Instance.isReloading)
     {
-      case GunType.Pistol:
-        PlayerEquip.Instance.Pistol(gunPath);
-        break;
-      case GunType.Rifle:
-        PlayerEquip.Instance.Rifle(gunPath);
-        break;
-      case GunType.Shotgun:
-        break;
-      case GunType.Sniper:
-        break;
+      currentItemEquipped = gunGo;
+
+      string gunPath = GUN_PATH + gunName;
+
+      switch (gunGo.GetComponent<ItemPreparation>().gunData.type)
+      {
+        case GunType.Pistol:
+          PlayerEquip.Instance.Pistol(gunPath);
+          break;
+        case GunType.Rifle:
+          PlayerEquip.Instance.Rifle(gunPath);
+          break;
+        case GunType.Shotgun:
+          break;
+        case GunType.Sniper:
+          break;
+      }
+
+      if (isDelay1FrameUpdatePlayingUI)
+      {
+        PercyGeneral.DelayFunctionByXFrame(this, "Delay1FrameUpdatePlayingUI", 1);
+        isDelay1FrameUpdatePlayingUI = false;
+      }
+      else
+      {
+        GameManager.Instance.UpdatePlayingUI();
+      }
     }
+  }
+  void Delay1FrameUpdatePlayingUI()
+  {
+    GameManager.Instance.UpdatePlayingUI();
   }
 }

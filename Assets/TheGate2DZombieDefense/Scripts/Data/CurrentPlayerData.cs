@@ -45,6 +45,24 @@ public class CurrentPlayerData : MonoBehaviour
     return gunLookingFor;
   }
 
+  public ItemData GetSkillData(string name)
+  {
+    int skillCount = CurrentPlayerData.Instance.data.skillInventory.Count;
+
+    ItemData skillLookingFor = null;
+
+    for (int i = 0; i < skillCount; i++)
+    {
+      ItemData skill = JsonUtility.FromJson<ItemData>(CurrentPlayerData.Instance.data.skillInventory[i]);
+      if (skill.name.ToLower() == name.ToLower())
+      {
+        skillLookingFor = skill;
+      }
+    }
+
+    return skillLookingFor;
+  }
+
   void InitializeValues()
   {
     PlayerData playerData = SaveLoad.Instance.Load();

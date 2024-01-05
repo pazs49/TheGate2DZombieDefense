@@ -18,6 +18,7 @@ public class DayManager : MonoBehaviour
   public Day GetCurrentDay()
   {
     Day day = days.First(x => x.name.StartsWith("Day" + CurrentPlayerData.Instance.data.dayLevel));
+    Debug.Log(day.name + " is loaded!");
     return day;
   }
 }

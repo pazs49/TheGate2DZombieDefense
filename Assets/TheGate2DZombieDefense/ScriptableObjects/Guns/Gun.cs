@@ -11,6 +11,8 @@ public class Gun : ScriptableObject
   /// <summary>
   /// -1 means infinite ammo. Usually only for default gun AKA Pistol1
   /// </summary>
+
+  public int currentMagazineBullet;
   public int magazineCapacity;
   public float reloadSpeed;
   public float fireRate;

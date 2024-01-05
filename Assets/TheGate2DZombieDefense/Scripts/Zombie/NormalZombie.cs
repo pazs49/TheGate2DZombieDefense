@@ -9,10 +9,14 @@ public class NormalZombie : Zombie, IZombie
 {
   public bool canMove;
 
-  public SkeletonMecanim mecanim;
-
-  private void Start()
+  protected override void Awake()
   {
+    base.Awake();
+  }
+
+  protected override void Start()
+  {
+    base.Start();
     state = ZombieState.Moving;
   }
   private void FixedUpdate()
@@ -20,12 +24,20 @@ public class NormalZombie : Zombie, IZombie
     State(state);
   }
 
-  //General collider
-  private void OnTriggerEnter2D(Collider2D other)
+  protected override void OnTriggerEnter2D(Collider2D other)
   {
+    base.OnTriggerEnter2D(other);
     if (other.gameObject.CompareTag("Gate"))
     {
       state = ZombieState.Attacking;
+    }
+  }
+
+  private void OnTriggerExit2D(Collider2D other)
+  {
+    if (other.gameObject.CompareTag("Gate"))
+    {
+      state = ZombieState.Moving;
     }
   }
 
@@ -40,9 +52,15 @@ public class NormalZombie : Zombie, IZombie
     canMove = false;
   }
 
-  public void InflictDamage()
+  public override void InflictDamage()
   {
+    base.InflictDamage();
+    GameManager.Instance.UpdatePlayingUI();
+  }
 
+  public override void DeathEnd()
+  {
+    base.DeathEnd();
   }
   //-------------------------------
 
@@ -54,7 +72,7 @@ public class NormalZombie : Zombie, IZombie
         Move(movementSpeed);
         break;
       case ZombieState.Attacking:
-        Attack(attackPower);
+        Attack();
         break;
       case ZombieState.Death:
         Death();
@@ -62,7 +80,7 @@ public class NormalZombie : Zombie, IZombie
     }
   }
 
-  public void Attack(float damage)
+  public void Attack()
   {
     anim.SetBool("isAttacking", true);
     anim.SetBool("isWalking", false);

@@ -16,6 +16,7 @@ MonoBehaviour:
   type: 1
   damage: 10
   penetrationPower: 5
+  currentMagazineBullet: 20
   magazineCapacity: 20
-  reloadSpeed: 2
+  reloadSpeed: 7
   fireRate: 8

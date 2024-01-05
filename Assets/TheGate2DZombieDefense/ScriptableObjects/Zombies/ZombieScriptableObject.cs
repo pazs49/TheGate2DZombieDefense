@@ -10,4 +10,5 @@ public class ZombieScriptableObject : ScriptableObject
   public float movementSpeed;
   public float attackSpeed;
   public int penetrationDefense;
+  public float baseDamage;
 }

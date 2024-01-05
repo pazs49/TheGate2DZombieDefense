@@ -30,8 +30,9 @@ public class SaveLoad : MonoBehaviour
     List<string> skillInventory = CurrentPlayerData.Instance.data.skillInventory;
     int gold = CurrentPlayerData.Instance.data.gold;
     int dayLevel = CurrentPlayerData.Instance.data.dayLevel;
+    GateAndBaseData gateAndBaseData = CurrentPlayerData.Instance.data.gateAndBaseData;
 
-    playerData = new PlayerData(gunInventory, skillInventory, gold, dayLevel);
+    playerData = new PlayerData(gunInventory, skillInventory, gateAndBaseData, gold, dayLevel);
 
     string json = JsonUtility.ToJson(playerData);
     File.WriteAllText(savePath, json);

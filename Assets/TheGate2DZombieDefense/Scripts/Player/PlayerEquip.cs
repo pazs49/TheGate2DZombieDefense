@@ -15,12 +15,12 @@ public class PlayerEquip : MonoBehaviour
 
   private void Start()
   {
-
+    DefaultGun();
   }
 
   public void DefaultGun()
   {
-
+    Pistol("guns/pistol1");
   }
 
   public void Pistol(string name)

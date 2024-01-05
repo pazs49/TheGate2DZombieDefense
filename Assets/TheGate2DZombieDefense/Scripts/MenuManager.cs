@@ -6,7 +6,10 @@ public class MenuManager : MonoBehaviour
   public Canvas titleCanvas;
   public Canvas menuButtonsCanvas;
   public Canvas preparationCanvas;
+  public Canvas shopCanvas;
   public Canvas playerControllerCanvas;
+  public Canvas gameOverCanvas;
+  public Canvas gameWinCanvas;
 
   Canvas[] allCanvas;
 
@@ -44,9 +47,21 @@ public class MenuManager : MonoBehaviour
     {
       EnableCanvas(allCanvas, preparationCanvas);
     }
+    else if (state == GameState.Shop)
+    {
+      EnableCanvas(allCanvas, shopCanvas);
+    }
     else if (state == GameState.Playing)
     {
       EnableCanvas(allCanvas, playerControllerCanvas);
+    }
+    else if (state == GameState.LevelEndLost)
+    {
+      EnableCanvas(allCanvas, gameOverCanvas);
+    }
+    else if (state == GameState.LevelEndWon)
+    {
+      EnableCanvas(allCanvas, gameWinCanvas);
     }
   }
 
@@ -63,15 +78,34 @@ public class MenuManager : MonoBehaviour
     UpdateState(GameState.Playing);
   }
 
+  public void Shop()
+  {
+    UpdateState(GameState.Shop);
+  }
+
+  public void ShopBack()
+  {
+    UpdateState(GameManager.Instance.GetPreviousState());
+  }
+
+  //--Game over
+  public void RestartLevel()
+  {
+    UpdateState(GameState.Preparation);
+  }
+
   //Excludes menuCanvas
   void LoadAllCanvas()
   {
-    allCanvas = new Canvas[4];
+    allCanvas = new Canvas[7];
 
     allCanvas[0] = titleCanvas;
     allCanvas[1] = menuButtonsCanvas;
     allCanvas[2] = preparationCanvas;
     allCanvas[3] = playerControllerCanvas;
+    allCanvas[4] = gameOverCanvas;
+    allCanvas[5] = gameWinCanvas;
+    allCanvas[6] = shopCanvas;
   }
 
   /// <summary>

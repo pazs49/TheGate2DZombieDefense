@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombies:
   - {fileID: 5133707014833998916, guid: 839936456e244344f8923a06734c3f96, type: 3}
-  zombiesCount: 20
+  zombiesCount: 1
   spawnSpeed: 1

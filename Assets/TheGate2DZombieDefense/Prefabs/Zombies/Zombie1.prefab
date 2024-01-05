@@ -1449,11 +1449,11 @@ MonoBehaviour:
   attackPower: 0
   movementSpeed: 0
   attackSpeed: 0
+  penetrationDefense: 0
   allCols: []
   rb2d: {fileID: 0}
   anim: {fileID: 0}
   canMove: 0
-  mecanim: {fileID: 0}
 --- !u!33 &163851921841479279
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1482,7 +1482,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dbfa0cb16dcc9fe4da06bbb5231f219a, type: 2}
+  - {fileID: 2100000, guid: 3986073d61f461540bf4d781af4b0e3d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1500,8 +1500,8 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1310891669
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!95 &3857444124440696582
@@ -1554,11 +1554,12 @@ MonoBehaviour:
   fixDrawOrder: 0
   addNormals: 0
   calculateTangents: 0
-  maskInteraction: 0
+  maskInteraction: 2
   maskMaterials:
     materialsMaskDisabled: []
     materialsInsideMask: []
-    materialsOutsideMask: []
+    materialsOutsideMask:
+    - {fileID: 2100000, guid: 3986073d61f461540bf4d781af4b0e3d, type: 2}
   disableRenderingOnOverride: 1
   translator:
     autoReset: 1

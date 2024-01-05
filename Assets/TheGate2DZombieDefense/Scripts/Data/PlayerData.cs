@@ -5,13 +5,15 @@ public class PlayerData
 {
   public List<string> gunInventory;
   public List<string> skillInventory;
+  public GateAndBaseData gateAndBaseData;
   public int gold;
   public int dayLevel;
 
-  public PlayerData(List<string> gunInventory, List<string> skillInventory, int gold, int dayLevel)
+  public PlayerData(List<string> gunInventory, List<string> skillInventory, GateAndBaseData gateAndBaseData, int gold, int dayLevel)
   {
     this.gunInventory = gunInventory;
     this.skillInventory = skillInventory;
+    this.gateAndBaseData = gateAndBaseData;
     this.gold = gold;
     this.dayLevel = dayLevel;
   }
@@ -19,7 +21,7 @@ public class PlayerData
   {
     ItemData pistol1 = new ItemData();
     pistol1.name = "Pistol1";
-    pistol1.bulletCount = -1;
+    pistol1.bulletCount = 9999;
     string pistol1InJSONString = JsonUtility.ToJson(pistol1);
 
     ItemData rifle1 = new ItemData();
@@ -41,6 +43,10 @@ public class PlayerData
     {
       healInJSONString
     };
+
+    gateAndBaseData = new GateAndBaseData();
+    gateAndBaseData.gateHealth = 100f;
+    gateAndBaseData.baseHealth = 10f;
 
     this.gold = 0;
     this.dayLevel = 1;

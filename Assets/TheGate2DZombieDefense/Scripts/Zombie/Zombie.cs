@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +19,55 @@ public class Zombie : MonoBehaviour
   [HideInInspector] public Rigidbody2D rb2d;
   [HideInInspector] public Animator anim;
 
-  private void Awake()
+
+  //Damage for player's base
+  protected virtual void OnTriggerEnter2D(Collider2D other)
+  {
+    if (other.CompareTag("Base"))
+    {
+      PlayerLoadout.Instance.gateAndBaseData.baseHealth -= zombieData.baseDamage;
+      TakeDamage(99999, ZombieBodyPart.Head, false);
+      GameManager.Instance.UpdatePlayingUI();
+    }
+  }
+
+  protected virtual void Awake()
   {
     Init(zombieData);
   }
+
+  protected virtual void Start()
+  {
+    ZombieSpawner.Instance.OnNightBuff += NightBuff;
+  }
+
   private void Update()
   {
     AdjustZPosition();
   }
+
+  private void OnDestroy()
+  {
+    ZombieSpawner.Instance.OnNightBuff -= NightBuff;
+  }
+
   //---------------------------------
-  public void TakeDamage(float damage, ZombieBodyPart bodyPart)
+
+  public virtual void DeathEnd()
+  {
+    Destroy(gameObject);
+  }
+
+  //---------------------------------
+  public static void ResetZombies()
+  {
+    List<Zombie> zombies = GameObject.FindGameObjectsWithTag("Zombie")
+    .Select(x => x.GetComponent<Zombie>()).ToList();
+
+    zombies.ForEach(x => x.TakeDamage(99999, ZombieBodyPart.Head));
+  }
+  //---------------------------------
+  public void TakeDamage(float damage, ZombieBodyPart bodyPart, bool isRewarded = true)
   {
     switch (bodyPart)
     {
@@ -50,7 +90,11 @@ public class Zombie : MonoBehaviour
 
     }
     Debug.Log(gameObject.name + " took " + damage + " damage!");
-    if (health <= 0)
+    if (isRewarded && health <= 0)
+    {
+      state = ZombieState.Death;
+    }
+    else if (!isRewarded && health <= 0)
     {
       state = ZombieState.Death;
     }
@@ -82,6 +126,16 @@ public class Zombie : MonoBehaviour
       return col;
     }).ToArray();
     allCols = disabledColls;
+  }
+
+  public virtual void InflictDamage()
+  {
+    PlayerLoadout.Instance.gateAndBaseData.gateHealth -= attackPower;
+  }
+
+  public void NightBuff()
+  {
+    movementSpeed += movementSpeed * .5f;
   }
 }
 
